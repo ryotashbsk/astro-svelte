@@ -1,0 +1,59 @@
+---
+// import Footer from '@components/Shared/Footer.astro';
+import Head from '@components/Shared/Head.astro';
+// import Header from '@components/Shared/Header.astro';
+import Main from '@components/Shared/Main.astro';
+import PageContents from '@components/Shared/PageContents.astro';
+import PageHeader from '@components/Shared/PageHeader.astro';
+
+export interface Props {
+  title?: string;
+  pageTitle?: string;
+  description?: string;
+  customOgImage?: string;
+  noIndex?: boolean;
+  isHideTitle?: boolean;
+}
+
+const { title, pageTitle, description, customOgImage, noIndex, isHideTitle } = Astro.props;
+const currentPath: string = Astro.url.pathname;
+---
+
+<html lang="ja" class="preload" data-route={currentPath}>
+  <Head
+    {title}
+    {pageTitle}
+    {customOgImage}
+    {noIndex}
+    description={description?.replace(/<br\s*(?:class=".*?"\s*)?\/?>/gi, '')}
+  />
+
+  <body>
+    <div class="wrapper">
+      <!-- <Header /> -->
+      <Main>
+        {
+          currentPath === '/' ? (
+            <>
+              <slot />
+            </>
+          ) : (
+            <div class="pageWrapper">
+              <PageHeader {title} {isHideTitle} />
+              <PageContents>
+                <slot />
+              </PageContents>
+            </div>
+          )
+        }
+      </Main>
+      <!-- <Footer /> -->
+    </div>
+
+    <script>
+      import { Layout } from '@ui/Layout';
+      const layout = new Layout();
+      layout.init();
+    </script>
+  </body>
+</html>

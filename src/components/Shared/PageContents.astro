@@ -1,0 +1,9 @@
+---
+const { ...attributes } = Astro.props;
+---
+
+<div class="pageContents inside-blank" {...attributes}>
+  <div class="inner">
+    <slot />
+  </div>
+</div>

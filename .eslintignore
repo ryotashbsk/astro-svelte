@@ -1,0 +1,5 @@
+dist/
+static/
+node_modules/
+astro.config.mjs
+**/**.svg

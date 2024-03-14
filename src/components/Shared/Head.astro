@@ -1,0 +1,55 @@
+---
+import '@styles/global.scss';
+import '@styles/utils.scss';
+// import SW from '@components/Shared/SW.astro';
+import { defaultDescription, siteName } from '@config';
+import defaultOgImage from '@images/og.png';
+
+const { title, pageTitle, description, customOgImage, noIndex } = Astro.props;
+const currentPath: string = Astro.url.pathname;
+
+let titleTag = currentPath === '/' ? title ?? siteName : `${pageTitle ?? title} | ${siteName}`;
+titleTag = titleTag.replace(/<br\s*(?:class=".*?"\s*)?\/?>/gi, '');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = customOgImage ?? new URL(defaultOgImage.src, Astro.url);
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="x-dns-prefetch-control" content="on" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#fcfcfa" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content={siteName} />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <title>{titleTag}</title>
+  <meta name="description" content={description ?? defaultDescription} />
+
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={titleTag} />
+  <meta property="og:description" content={description ?? defaultDescription} />
+  <meta property="og:image" content={ogImage} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={canonicalURL} />
+  <meta name="twitter:title" content={titleTag} />
+  <meta name="twitter:description" content={description ?? defaultDescription} />
+  <meta name="twitter:image" content={ogImage} />
+
+  {noIndex && <meta name="robots" content="noindex" />}
+
+  <!-- <SW /> -->
+  <slot />
+</head>
+
+<script>
+  import { UA } from '@utils/UA';
+  UA.set();
+</script>

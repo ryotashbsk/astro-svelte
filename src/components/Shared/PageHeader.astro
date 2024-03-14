@@ -1,0 +1,18 @@
+---
+export interface Props {
+  title?: string;
+  isHideTitle?: boolean | false;
+}
+
+const { title, isHideTitle, ...attributes } = Astro.props;
+---
+
+{
+  !isHideTitle && (
+    <header class="pageHeader inside-blank" {...attributes}>
+      <div class="inner">
+        <h1 class="title">{title}</h1>
+      </div>
+    </header>
+  )
+}

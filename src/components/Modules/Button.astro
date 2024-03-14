@@ -1,0 +1,19 @@
+---
+const { ...attributes } = Astro.props;
+---
+
+{
+  attributes.href ? (
+    <a class="button" {...attributes}>
+      <span>
+        <slot />
+      </span>
+    </a>
+  ) : (
+    <button class="button" {...attributes}>
+      <span>
+        <slot />
+      </span>
+    </button>
+  )
+}

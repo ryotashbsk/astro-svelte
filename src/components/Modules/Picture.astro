@@ -1,0 +1,35 @@
+---
+import { getImage, Image } from 'astro:assets';
+
+export interface Props {
+  src: any;
+  alt?: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  format?: string;
+  srcset?: {
+    src: any;
+    media?: string;
+    format?: string;
+  }[];
+}
+
+const { src, width, height, alt = '', srcset, loading, format, ...attributes } = Astro.props;
+const sourceFormat = format || 'webp';
+---
+
+{
+  srcset ? (
+    <picture {...attributes}>
+      <Image {src} {alt} {width} {height} {loading} {format} decoding="auto" />
+      {srcset?.map(async ({ src, media }) => {
+        const data = await getImage({ src, format: sourceFormat, width, height });
+        return <source srcset={data.src} media={media} />;
+      })}
+    </picture>
+  ) : (
+    <Image {src} {alt} {width} {height} {loading} {format} {...attributes} decoding="auto" />
+  )
+}

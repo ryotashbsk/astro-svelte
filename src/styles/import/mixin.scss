@@ -1,0 +1,148 @@
+@use 'sass:map';
+@use './variable' as *;
+
+// メディアクエリ
+$breakpoints: (
+  'mobile': 750,
+  'tablet': 768,
+  'desktop': 1440,
+  '840': 840,
+  '1024': 1024,
+  '1100': 1100,
+  '1280': 1280,
+  '1366': 1366
+) !default;
+
+@mixin mq($mq, $bp1: tablet, $bp2: desktop) {
+  $w1: map.get($breakpoints, $bp1);
+  $w2: map.get($breakpoints, $bp2);
+  $min1: 'min-width: #{convert-em($w1, 1)}';
+  $min2: 'min-width: #{convert-em($w1, 1)}';
+  $max1: 'max-width: #{convert-em($w1)}';
+  $max2: 'max-width: #{convert-em($w2)}';
+
+  @if $mq == min {
+    @media ($min1) {
+      @content;
+    }
+  }
+
+  @if $mq == max {
+    @media ($max1) {
+      @content;
+    }
+  }
+
+  @if $mq == min-max {
+    @media ($min2) and ($max2) {
+      @content;
+    }
+  }
+}
+
+// pxからemに変換
+@function convert-em($width, $ge: 0) {
+  $result: $width + $ge;
+
+  @return '#{calc($result * 0.0625)}em';
+}
+
+// 汎用計算用関数
+@function vw_pc($size) {
+  @return calc($size / $pc-width) * 100vw;
+}
+
+@function vh_pc($size) {
+  @return calc($size / 854) * 100vh;
+}
+
+@function vw_sp($size) {
+  @return calc($size / $sp-width) * 100vw;
+}
+
+@function per($size, $base) {
+  @return calc($size / $base) * 100%;
+}
+
+@function min_vw_pc($size) {
+  @return min(vw_pc($size), $size * 1px);
+}
+
+@function max_vw_pc($size) {
+  @return max(vw_pc($size), $size * 1px);
+}
+
+@function rem($size) {
+  @return calc($size / $base-font-size-sp) * 1rem;
+}
+
+@mixin yoko() {
+  @media screen and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin tate() {
+  @media screen and (orientation: portrait) {
+    @content;
+  }
+}
+
+// 行詰め
+@mixin line-height-crop($line-height) {
+  line-height: $line-height;
+
+  &::before {
+    position: relative;
+    z-index: -1;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-top: calc((1 - #{$line-height}) * 0.5em);
+    content: '';
+  }
+
+  &::after {
+    position: relative;
+    z-index: -1;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-bottom: calc((1 - #{$line-height}) * 0.5em);
+    content: '';
+  }
+}
+
+// hover有効判定
+@mixin hover() {
+  @media (hover: hover) {
+    &:where(:any-link, :enabled, summary):hover {
+      @content;
+    }
+  }
+}
+
+@mixin group-hover {
+  @media (hover: hover) {
+    &:is(:where(:any-link, :enabled, summary):hover *) {
+      @content;
+    }
+  }
+}
+
+// 行数制限
+@mixin line-clamp($row) {
+  display: -webkit-box;
+  -webkit-line-clamp: $row;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// スクロールバー非表示
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,45 @@
+---
+interface NavItem {
+  label: string;
+  anchor?: string;
+}
+
+const navItem: NavItem[] = [
+  { label: 'Link1', anchor: 'link1' },
+  { label: 'Link2', anchor: 'link2' },
+  { label: 'Link3', anchor: 'link3' },
+  { label: 'Link4', anchor: 'link4' }
+];
+---
+
+<button class="navToggle visible-sp" aria-haspopup="true">Menu</button>
+
+<nav class="nav">
+  <div class="items">
+    {
+      navItem?.map((v) => (
+        <button class="item" data-anchor={v.anchor}>
+          <span>
+            <span>{v.label}</span>
+            <span data-text={v.label} />
+          </span>
+        </button>
+      ))
+    }
+  </div>
+</nav>
+
+<style lang="scss">
+  .item {
+    span {
+      position: relative;
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  import { Nav } from '@ui/Nav';
+  const nav = new Nav();
+  nav.init();
+</script>

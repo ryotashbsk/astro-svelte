@@ -1,0 +1,9 @@
+<script src="/sw.js" is:inline defer></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(() => {
+      console.log('Service Worker Registered');
+    });
+  }
+</script>

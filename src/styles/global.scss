@@ -1,0 +1,185 @@
+:root {
+  --black: #000;
+  --duration: 0.4s;
+  --expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --cubic-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  border: 0;
+
+  .preload & {
+    transition: none !important;
+  }
+}
+
+html {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  touch-action: manipulation;
+
+  &.is-load {
+    position: static;
+  }
+
+  @include mq('max', 'mobile') {
+    font-size: vw_sp($base-font-size-sp);
+  }
+
+  @include mq('min', 'mobile') {
+    font-size: max(14px, min_vw_pc($base-font-size-pc));
+  }
+}
+
+body {
+  font-family: $base-font;
+  font-weight: 400;
+  font-feature-settings: 'palt' 1;
+  line-height: 2;
+  color: var(--black);
+  letter-spacing: 0.05em;
+  text-size-adjust: 100%;
+  -ms-overflow-style: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+article,
+aside,
+details,
+dialog,
+picture,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+
+br,
+hr {
+  display: block;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+  content: none;
+}
+
+input,
+select {
+  vertical-align: middle;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+table {
+  empty-cells: show;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+input,
+select,
+button {
+  vertical-align: middle;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+}
+
+select {
+  text-indent: 0.01px;
+  text-overflow: '';
+  background-color: transparent;
+}
+
+textarea {
+  font-size: 100%;
+}
+
+em {
+  font-style: normal;
+  font-weight: 700;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  color: var(--black);
+  text-decoration: none;
+  text-underline-offset: 0.3em;
+  word-break: break-word;
+  user-select: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button {
+  display: block;
+  font-family: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: none;
+}
+
+:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+svg {
+  overflow: hidden;
+}
+
+time {
+  letter-spacing: 0;
+}

@@ -1,0 +1,22 @@
+---
+import Nav from '@components/Shared/Nav.astro';
+---
+
+<header class="header">
+  <h1 class="logo">
+    <a href="/">LOGO</a>
+  </h1>
+  <Nav />
+</header>
+
+<style lang="scss">
+  .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

@@ -1,0 +1,82 @@
+.br-pc {
+  @include mq('max', 'mobile') {
+    display: none;
+  }
+}
+
+.br-sp {
+  @include mq('min', 'mobile') {
+    display: none;
+  }
+}
+
+.br-tate {
+  display: none;
+
+  @include tate {
+    display: block;
+  }
+}
+
+.br-yoko {
+  display: none;
+
+  @include yoko {
+    display: block;
+  }
+}
+
+.visible-pc {
+  @include mq('max', 'mobile') {
+    display: none !important;
+  }
+}
+
+.visible-sp {
+  @include mq('min', 'mobile') {
+    display: none !important;
+  }
+}
+
+.visible-tate {
+  display: none;
+
+  @include yoko {
+    display: none !important;
+  }
+}
+
+.visible-yoko {
+  @include tate {
+    display: none !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.inner {
+  position: relative;
+  max-width: 1151px;
+  margin: 0 auto;
+}
+
+.inside-blank {
+  @include mq('max', 'mobile') {
+    padding-right: rem(25);
+    padding-left: rem(25);
+  }
+
+  @include mq('min', 'mobile') {
+    padding-right: min_vw_pc(50);
+    padding-left: min_vw_pc(50);
+  }
+}

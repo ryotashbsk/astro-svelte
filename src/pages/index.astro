@@ -1,0 +1,9 @@
+---
+import Form from '@components/Partials/Form.svelte';
+import { defaultDescription } from '@config';
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout description={defaultDescription}>
+  <Form client="load" />
+</Layout>

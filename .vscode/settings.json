@@ -1,0 +1,27 @@
+{
+  "search.exclude": {
+    "**/node_modules": true,
+    "dist": true,
+    "**.lock": true
+  },
+  "editor.detectIndentation": false,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "editor.formatOnSave": true,
+  "css.validate": true,
+  "scss.validate": true,
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "scss", "html", "astro", "svelte"],
+  "eslint.validate": ["html", "javascript", "javascriptreact", "typescript", "typescriptreact", "astro", "svelte"],
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "explicit",
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[github-actions-workflow]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  }
+}
