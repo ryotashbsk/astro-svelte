@@ -56,12 +56,13 @@
   {#each formConfig as item}
     {#if item.label}
       <div class="item">
-        <div class="label">
+        <label class="label" for={item.name}>
           {item.label}
           {#if item.required}
             <span class="requiredIcon">*</span>
           {/if}
-        </div>
+        </label>
+
         <div class="input is-{item.type} is-{item.name}">
           <Input
             type={item.type}
