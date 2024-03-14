@@ -1,14 +1,87 @@
 <script lang="ts">
+  import { formConfig } from '@config';
+
+  import Input from './Input.svelte';
+
+  let formData: {
+    [key: string]: {
+      value: string | string[];
+      error: string;
+    };
+  } = {};
+
+  let errorCount: {
+    [key: string]: string;
+  } = {};
+
+  let isError = true;
+
+  const getInputData = (
+    e: {
+      detail: {
+        value: string | string[];
+        error: string;
+      };
+    },
+    n: string
+  ) => {
+    formData[n] = e.detail;
+
+    if (e.detail.error) {
+      errorCount[n] = e.detail.error;
+    } else {
+      delete errorCount[n];
+    }
+
+    isError = Object.keys(errorCount).length == 0 ? false : true;
+
+    console.log(formData);
+  };
+
+  const submit = async () => {
+    if (!isError) {
+      const mailBody = formConfig.map((v) => {
+        const value = formData[`${v.name}`]?.value;
+        return {
+          label: v.label,
+          value: Array.isArray(value) ? value.join(',') : value
+        };
+      });
+      console.log(mailBody);
+    }
+  };
 </script>
 
-<form action="">
-  <div>name</div>
-  <input type="text" value="" />
+<form name="myForm">
+  {#each formConfig as item}
+    {#if item.label}
+      <div class="item">
+        <div class="label">
+          {item.label}
+          {#if item.required}
+            <span class="requiredIcon">*</span>
+          {/if}
+        </div>
+        <div class="input is-{item.type} is-{item.name}">
+          <Input
+            type={item.type}
+            name={item.name}
+            placeholder={item.placeholder}
+            inputmode={item.inputmode}
+            checkboxes={item.checkboxes}
+            radios={item.radios}
+            selects={item.selects}
+            required={item.required}
+            on:getInputData={(e) => {
+              getInputData(e, item.name);
+            }}
+          />
+        </div>
+      </div>
+    {/if}
+  {/each}
 
-  <div>email</div>
-  <input type="email" value="" />
-
-  <button type="submit">Send</button>
+  <button type="submit" class="button" class:is-enable={!isError} on:click|preventDefault={submit}>送信</button>
 </form>
 
 <style lang="scss">
@@ -18,16 +91,17 @@
     width: 500px;
     padding: 30px;
     margin: 0 auto;
+    line-height: 1;
     background-color: #f3f3f3;
     border-radius: 20px;
   }
 
-  input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  .item {
+    margin-bottom: 2em;
+  }
+
+  .requiredIcon {
+    color: red;
   }
 
   button {

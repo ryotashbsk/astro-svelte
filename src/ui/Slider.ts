@@ -42,7 +42,8 @@ export class Slider {
     // this.#switchTab();
 
     // 最初のアニメーションを開始
-    this.#callbackId = requestAnimationFrame(this.#animate.bind(this));
+    // this.#callbackId = requestAnimationFrame(this.#animate.bind(this));
+    requestAnimationFrame(this.#animate.bind(this));
   }
 
   // アニメーションのコールバック関数
@@ -57,7 +58,7 @@ export class Slider {
       const elapsedTime = timestamp - this.#startTime;
       const progress = Math.min(elapsedTime / this.#period, 1);
 
-      this.#currentTime = progress;
+      // this.#currentTime = progress;
 
       // 進捗1（this.#periodの時間分経過）
       if (progress === 1) {

@@ -20,15 +20,7 @@
 }
 
 html {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
   touch-action: manipulation;
-
-  &.is-load {
-    position: static;
-  }
 
   @include mq('max', 'mobile') {
     font-size: vw_sp($base-font-size-sp);
@@ -126,7 +118,6 @@ input,
 select,
 button {
   vertical-align: middle;
-  appearance: none;
   border: 0;
   border-radius: 0;
 }

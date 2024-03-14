@@ -5,5 +5,5 @@ import Layout from '@layouts/Layout.astro';
 ---
 
 <Layout description={defaultDescription}>
-  <Form client="load" />
+  <Form client:only="svelte" />
 </Layout>
